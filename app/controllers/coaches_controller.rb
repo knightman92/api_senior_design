@@ -1,9 +1,9 @@
 class CoachesController < ApplicationController
   before_action :set_coach, only: [:show, :update, :destroy]
-
+  before_action :authenticate_coach!
   # GET /coaches
   def index
-    @coaches = Coach.all
+    @coaches = Coach.all.order('first_name asc')
     json_response(@coaches)
   end
 
@@ -34,7 +34,7 @@ class CoachesController < ApplicationController
 
   def coach_params
     # whitelist params
-    params.permit(:first_name, :last_name, :email, :encrypted_password, :phone)
+    params.permit(:first_name, :last_name, :email, :password, :password_confirmation, :phone)
   end
 
   def set_coach

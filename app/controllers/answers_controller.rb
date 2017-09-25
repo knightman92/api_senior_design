@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
 
   # GET /answers
   def index
-    @answers = Answer.all
+    @answers = Answer.where("player_id = ?", params[:player_id])
     json_response(@answers)
   end
 

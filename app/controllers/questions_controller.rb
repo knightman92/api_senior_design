@@ -3,8 +3,8 @@ class QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    @questions = Question.all
-    json_response(@questions)
+      @questions = Question.all
+      json_response(@questions)
   end
 
   # POST /questions

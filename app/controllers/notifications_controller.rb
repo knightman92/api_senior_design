@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   # GET /notifications
   def index
-    @notifications = Notification.all
+    @notifications = Notification.where("category = ?", params[:category])
     json_response(@notifications)
   end
 

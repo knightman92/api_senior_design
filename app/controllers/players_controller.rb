@@ -34,7 +34,7 @@ class PlayersController < ApplicationController
 
   def player_params
     # whitelist params
-    params.permit( :first_name, :last_name, :email, :encrypted_password, :phone, :gender, :points, :coach_id, :age)
+    params.permit( :first_name, :last_name, :email, :password, :password_confirmation, :phone, :gender, :points, :coach_id, :age, :age_range)
   end
 
   def set_player

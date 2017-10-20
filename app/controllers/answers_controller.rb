@@ -3,12 +3,21 @@ class AnswersController < ApplicationController
 
   # GET /answers
   def index
-    @answers = Answer.where("player_id = ?", params[:player_id])
+    if params[:player_id] != nil and params[:question_id] != nil
+      @answers = Answer.where("player_id = ? AND question_id = ?", params[:player_id], params[:question_id])
+    elsif params[:player_id] != nil
+      @answers = Answer.where("player_id = ?", params[:player_id])
+    elsif params[:question_id] != nil
+      @answers = Answer.where("question_id = ?", params[:question_id])
+    else
+      @answers = Answer.all
+    end
     json_response(@answers)
   end
 
   # POST /answers
   def create
+    puts params 
     @answer = Answer.create!(answer_params)
     json_response(@answer, :created)
   end

@@ -3,7 +3,15 @@ class NotificationsController < ApplicationController
 
   # GET /notifications
   def index
-    @notifications = Notification.where("category = ?", params[:category])
+    if params[:question_id] != nil and params[:category] != nil
+      @notifications = Notification.where("question_id = ? AND category = ?", params[:question_id], params[:category])
+    elsif params[:category] != nil
+      @notifications = Notification.where("category = ?", params[:category])
+    elsif params[:question_id] != nil
+      @notifications = Notification.where("question_id = ?", params[:question_id])
+    else
+      @notifications = Notification.all
+    end
     json_response(@notifications)
   end
 
@@ -34,7 +42,7 @@ class NotificationsController < ApplicationController
 
   def notification_params
     # whitelist params
-    params.permit( :message, :category, :player_id, :question_id, :url )
+    params.permit( :message, :category, :question_id, :url )
   end
 
   def set_notification

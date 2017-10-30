@@ -8,7 +8,14 @@ Rails.application.routes.draw do
 
   post '/multiple_answers', to: 'multiple_answers#create_multiple'
 
+  post 'tokens' => "tokens#create"
+
+  # post 'twilio' => "twilio#create"
+  
   resources :leaderboard
+  resources :channels
+  resources :members
+  resources :twilio
 
   resources :coaches_players
   resources :players 
@@ -16,5 +23,4 @@ Rails.application.routes.draw do
   resources :coaches
   resources :questions
   resources :notifications
-  resources :twilio
 end

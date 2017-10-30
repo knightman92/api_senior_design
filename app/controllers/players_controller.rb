@@ -1,8 +1,8 @@
 class PlayersController < ApplicationController
 	before_action :set_player, only: [:show, :update, :destroy]
   before_action :authenticate_player!, only: [:destroy]
-
-
+  # before_action :createChannel, only: [:create]
+  # include Channels
 
   # GET /players
   def index
@@ -59,4 +59,16 @@ class PlayersController < ApplicationController
   def set_player
     @player = Player.find(params[:id])
   end
+
+  # def createChannel
+  #   puts '========got here========='
+  #   account_sid = 'AC309ecc6b635e0352480eb78de524c4ce'
+  #   auth_token = 'ba1aaeec93982846f48ed3534b2d0547'
+  #   service_sid = 'IS8aab1320365f43fbb4bd92bfd20d5318'
+  #   @client = Twilio::REST::Client.new(account_sid, auth_token)
+  #   # Create the channel
+  #   service = @client.chat.v2.services(service_sid)
+  #   channel = service.channels.create(unique_name: params[:email])
+  #   puts "Channel #{channel.sid} (\"#{channel.unique_name}\") created!"
+  # end 
 end

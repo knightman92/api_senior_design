@@ -1,30 +1,35 @@
 class TokensController < ApplicationController
-	before_filter :authenticate_coach!
-	name = 'kyle'
-
-	def get_token
-    Twilio::Util::AccessToken.new(
-      ENV['TWILIO_ACCOUNT_SID'],
-      ENV['TWILIO_API_KEY'],
-      ENV['TWILIO_API_SECRET'],
-      3600, 
-      name
-    )
-  end
-
-	def get_grant 
-	  grant = Twilio::Util::AccessToken::IpMessagingGrant.new 
-	  grant.endpoint_id = "Chatty:#{name.gsub(" ", "_")}:browser"
-	  grant.service_sid = ENV['TWILIO_CHAT_SERVICE_SID']
-	  grant
-	end
+	# before_filter :authenticate_coach!
 
 	def create
-	  token = get_token
-	  grant = get_grant
-	  token.add_grant(grant)
-	  render json: {username: name, token: token.to_jwt}
-		puts token
+		# Required for any Twilio Access Token
+		account_sid = ENV['account_sid']
+		api_key = ENV['api_key']
+		api_secret = ENV['api_secret']
+
+		# Required for Chat
+		service_sid = ENV['service_sid']
+		identity = 'krj221@gmail.com'
+
+		# Create Chat grant for our token
+		grant = Twilio::JWT::AccessToken::ChatGrant.new
+		grant.service_sid = service_sid
+
+		# Create an Access Token
+		token = Twilio::JWT::AccessToken.new(
+		  account_sid,
+		  api_key,
+		  api_secret,
+		  [grant],
+		  identity: identity
+		)
+
+		# Generate the token
+		puts token.to_jwt
+
+		token_response = "{\n    \"access_token\": \"#{token.to_jwt}\"\n}"
+
+		json_response(token_response)
 	end
-	
+		
 end

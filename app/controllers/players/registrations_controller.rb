@@ -2,6 +2,7 @@ class Players::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
   include Accessible
+  include Channels
   # GET /resource/sign_up
   def new
     super
@@ -10,6 +11,7 @@ class Players::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @player = Player.create!(player_params)
+    createChannel(params[:email])
     json_response(@player, :created)
   end
 

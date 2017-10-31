@@ -2,7 +2,8 @@ class PlayersController < ApplicationController
 	before_action :set_player, only: [:show, :update, :destroy]
   before_action :authenticate_player!, only: [:destroy]
   # before_action :createChannel, only: [:create]
-  # include Channels
+  include Channels
+
 
   # GET /players
   def index
@@ -46,6 +47,7 @@ class PlayersController < ApplicationController
   # DELETE /players/:id
   def destroy
     @player.destroy
+    deleteChannel(@player.id)
     head :no_content
   end
 

@@ -9,7 +9,7 @@ class TokensController < ApplicationController
 
 		# Required for Chat
 		service_sid = ENV['service_sid']
-		identity = 'krj221@gmail.com'
+		identity = params[:name]
 
 		# Create Chat grant for our token
 		grant = Twilio::JWT::AccessToken::ChatGrant.new
@@ -27,9 +27,10 @@ class TokensController < ApplicationController
 		# Generate the token
 		puts token.to_jwt
 
-		token_response = "{\n    \"access_token\": \"#{token.to_jwt}\"\n}"
-
-		json_response(token_response)
+		# token_response = "{\n    \"access_token\": \"#{token.to_jwt}\"\n}"
+		# json_response(identity: identity, token: token.to_jwt)
+		json_response(token: token.to_jwt)
+		# json_response(token_response)
 	end
 		
 end

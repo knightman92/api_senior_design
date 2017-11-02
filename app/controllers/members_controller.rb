@@ -55,13 +55,13 @@ class MembersController < ApplicationController
 	end
 
 	def destroy
-		# @client = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
-		# # Remove the member
-		# service = @client.chat.v2.services(service_sid)
-		# channel = service.channels(channel_sid)
+		@client = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
+		# Remove the member
+		service = @client.chat.v2.services(ENV['service_sid'])
+		channel = service.channels('CH6b7213c550c54923a0731c73b4c33b96')
 
-		# response = channel.members('MBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX').delete
-		# puts response
+		response = channel.members('MB45b6b8ae321a4ea493805a9ae2af532b').delete
+		puts response
 	end
 end
 

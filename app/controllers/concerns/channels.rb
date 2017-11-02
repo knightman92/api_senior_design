@@ -7,13 +7,13 @@ module Channels
 		player = Player.find_by(email: player_email)
 		channel = service.channels.create(unique_name: player.id)
 		puts "Channel #{channel.sid} (\"#{channel.unique_name}\") created!"
-		coach_email = Coach.find(player.coach_id)[:email]
+		# coach_email = Coach.find(player.coach_id)[:email]
 		# create members for channel
-		member = channel.members.create(identity: player_email)
-		member2 = channel.members.create(identity: coach_email)
-		puts member
-		puts member2
-		puts "New channel was created for "+player_email+" and "+coach_email
+		# member = channel.members.create(identity: player_email)
+		# member2 = channel.members.create(identity: coach_email)
+		# puts member
+		# puts member2
+		# puts "New channel was created for "+player_email+" and "+coach_email
 	end
 
 	def deleteChannel(id)

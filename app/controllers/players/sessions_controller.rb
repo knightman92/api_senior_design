@@ -30,12 +30,12 @@ class Players::SessionsController < Devise::SessionsController
     end
   end
 
-  # DELETE /resource/sign_out
+  # POST /resource/sign_out
   def destroy
     player = Player.find_by(auth_token: params[:auth_token])
     player.auth_token = nil
     player.save
-    head 204
+    json_response(player)
   end
 
   # protected

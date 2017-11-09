@@ -11,6 +11,9 @@ class Players::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     @player = Player.create!(player_params)
+    coach = Coach.find(@player.coach_id)
+    @player.coach_name = coach.first_name+" "+coach.last_name
+    @player.save
     createChannel(params[:email])
     json_response(@player, :created)
   end
